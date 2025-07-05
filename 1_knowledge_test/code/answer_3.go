@@ -27,7 +27,6 @@ func answer_3() {
 	jobsChan := make(chan int32, numJobs)
 	resultsChan := make(chan string, numJobs)
 
-	// Membuat WaitGroup.
 	var wg sync.WaitGroup
 
 	fmt.Println("Memulai worker...")
@@ -40,18 +39,18 @@ func answer_3() {
 	for j := 1; j <= numJobs; j++ {
 		jobsChan <- int32(j)
 	}
-	// Menutup channel jobsChan untuk memberi tahu para worker bahwa tidak ada pekerjaan lagi.
+
 	close(jobsChan)
 
 	//  Menunggu semua worker selesai.
 	go func() {
-		wg.Wait()          // Menunggu sampai counter WaitGroup menjadi nol.
-		close(resultsChan) // Setelah semua pekerjaan selesai, tutup channel hasil.
+		wg.Wait()
+		close(resultsChan)
 	}()
 
 	fmt.Println("Menunggu hasil...")
 
-	//  Mengumpulkan semua hasil dari resultsChan.
+	//  Mengumpulkan semua hasil
 	for result := range resultsChan {
 		fmt.Println(result)
 	}

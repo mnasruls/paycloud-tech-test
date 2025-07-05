@@ -47,7 +47,7 @@ func queueUsingMutex() {
 }
 
 func queueUsingChannel() {
-	queue := make(chan string, 5) // Buffer size 5
+	queue := make(chan string, 5)
 
 	go func() {
 		for i := 1; i <= 10; i++ {
